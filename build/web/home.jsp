@@ -43,7 +43,7 @@
 
             <c:forEach var="article" items="${articles}">
                 <tr>
-                    <td><a href="">${article.title}</a></td>
+                    <td><a href="view?id=${article.id}" >${article.title}</a></td>
                     <td>${article.year}</td>
                     <td>
                         <c:forEach var="author" items="${article.listAuthor}">

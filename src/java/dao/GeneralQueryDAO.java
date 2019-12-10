@@ -196,5 +196,37 @@ public class GeneralQueryDAO {
         }
         return null;
     }
+    
+      public Article getArticleById(String ArticleID) throws SQLException {
+        List<Article> Articles = new ArrayList<>();
+        String where = " and ar.ArticleID =  " + ArticleID;
+        try {
+            String query = "select distinct  ar.ArticleID, Title, Year, Publisher, Abstract from Articles ar, Article_Author ar_au \n"
+                    + "where ar.ArticleID  = ar_au.ArticleID " + where;
+//            System.out.println("query article: " + query);
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Article article = new Article();
+
+                article.setId(rs.getInt(1));
+                article.setTitle(rs.getString(2));
+                article.setYear(rs.getInt(3));
+                article.setPublisher(rs.getString(4));
+                article.setAbstract(rs.getString(5));
+                article.setListAuthor(getAllAuthorOfArticle(rs.getInt(1)));
+                return article;
+            }
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            conn.close();
+            ps.close();
+            rs.close();
+        }
+        return null;
+    }
 
 }

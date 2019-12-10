@@ -12,27 +12,31 @@
         <title>JSP Page</title>
     </head>
     <body>
-       <table border="1" cellspacing="0">
-           <tr>
-               <td>Title</td>
-               <td>gia tri</td>
-           </tr>
+        <table border="1" cellspacing="0">
             <tr>
-               <td>Author</td>
-               <td>gia tri</td>
-           </tr>
+                <td>Title</td>
+                <td>${article.title}</td>
+            </tr>
             <tr>
-               <td>Year</td>
-               <td>gia tri</td>
-           </tr>
+                <td>Author</td>
+                <td>
+                    <c:forEach var="author" items="${article.listAuthor}">
+                        ${author.name}
+                        <br>
+                    </c:forEach></td>
+            </tr>
             <tr>
-               <td>Publisher</td>
-               <td>gia tri</td>
-           </tr>
+                <td>Year</td>
+                <td>${article.year}</td>
+            </tr>
             <tr>
-               <td>Abstract</td>
-               <td>gia tri</td>
-           </tr>
-            </table>
+                <td>Publisher</td>
+                <td>${article.publisher}</td>
+            </tr>
+            <tr>
+                <td>Abstract</td>
+                <td>${article.getAbstract()}</td>
+            </tr>
+        </table>
     </body>
 </html>

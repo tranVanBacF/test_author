@@ -5,8 +5,12 @@
  */
 package control;
 
+import dao.GeneralQueryDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -58,7 +62,15 @@ public class Articles extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         request.getRequestDispatcher("ArticleDetail.jsp").forward(request, response);
+        try {
+            GeneralQueryDAO query = new GeneralQueryDAO();
+            String articleId = request.getParameter("id");
+            request.setAttribute("article", query.getArticleById(articleId));
+            request.getRequestDispatcher("ArticleDetail.jsp").forward(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(Articles.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
     }
 
     /**
